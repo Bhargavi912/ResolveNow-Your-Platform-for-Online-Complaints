@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Status Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .success {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .warning {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 13px;
+        }
+        .info {
+            background: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Assignment Status Checker</h1>
+        
+        <div class="info">
+            <strong>Purpose:</strong> This tool checks if complaints have been assigned to agents.
+            <br><strong>Note:</strong> You must be logged in first in another tab!
+        </div>
+
+        <div class="section">
+            <h2>Step 1: Check Your Login Status</h2>
+            <button onclick="checkLoginStatus()">Check Who Am I</button>
+            <div id="loginResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 2: Check All Complaints (Any User)</h2>
+            <button onclick="checkUserComplaints()">Check My Complaints</button>
+            <div id="userComplaintsResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 3: Check Agent Assignments</h2>
+            <button onclick="checkAgentAssignments()">Check Agent Assignments</button>
+            <div id="agentResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 4: Check All Complaints (Admin Only)</h2>
+            <button onclick="checkAllComplaints()">Check All Complaints</button>
+            <div id="adminResult" class="result" style="display:none;"></div>
+        </div>
+
+        <div class="section">
+            <h2>Step 5: Direct Database Check</h2>
+            <button onclick="testBackendHealth()">Test Backend Connection</button>
+            <div id="backendResult" class="result" style="display:none;"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+
+        function checkLoginStatus() {
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.style.display = 'block';
+            
+            const token = localStorage.getItem('token');
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+            
+            if (!token || !user) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ NOT LOGGED IN</p>
+                    <p>Please login first in another tab at http://localhost:3000</p>
+                `;
+                return;
+            }
+            
+            resultDiv.innerHTML = `
+                <p class="success">✅ LOGGED IN</p>
+                <pre>${JSON.stringify(user, null, 2)}</pre>
+                <p><strong>User Type:</strong> ${user.userType}</p>
+                <p><strong>Name:</strong> ${user.name}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                ${user.userType === 'agent' ? '<p class="success">✅ You are an agent - you can check assignments</p>' : ''}
+                ${user.userType === 'admin' ? '<p class="success">✅ You are an admin - you can assign complaints</p>' : ''}
+                ${user.userType === 'customer' || user.userType === 'user' ? '<p class="warning">⚠️ You are a customer - switch to agent account to see assignments</p>' : ''}
+            `;
+        }
+
+        async function checkUserComplaints() {
+            const resultDiv = document.getElementById('userComplaintsResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    resultDiv.innerHTML = '<p class="error">❌ Not logged in!</p>';
+                    return;
+                }
+                
+                const response = await fetch(`${API_URL}/complaints/user`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const complaints = data.complaints || [];
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Found ${complaints.length} complaint(s) submitted by you</p>
+                        <pre>${JSON.stringify(complaints, null, 2)}</pre>
+                        ${complaints.length === 0 ? '<p class="warning">⚠️ No complaints found. Submit a complaint first!</p>' : ''}
+                        ${complaints.some(c => c.status === 'pending') ? '<p class="warning">⚠️ Some complaints are still PENDING - admin needs to assign them!</p>' : ''}
+                        ${complaints.some(c => c.status === 'assigned') ? '<p class="success">✅ Some complaints are ASSIGNED - agent can see them now!</p>' : ''}
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p class="error">❌ Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        async function checkAgentAssignments() {
+            const resultDiv = document.getElementById('agentResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                const token = localStorage.getItem('token');
+                const user = JSON.parse(localStorage.getItem('user') || 'null');
+                
+                if (!token) {
+                    resultDiv.innerHTML = '<p class="error">❌ Not logged in!</p>';
+                    return;
+                }
+                
+                if (user?.userType !== 'agent') {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ You are not logged in as an agent!</p>
+                        <p>Current user type: ${user?.userType || 'unknown'}</p>
+                        <p>Please logout and login with an agent account.</p>
+                    `;
+                    return;
+                }
+                
+                console.log('Fetching agent assignments...');
+                const response = await fetch(`${API_URL}/complaints/assigned/agent`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+                
+                if (response.ok) {
+                    const assignments = data.assignments || [];
+                    
+                    if (assignments.length === 0) {
+                        resultDiv.innerHTML = `
+                            <p class="warning">⚠️ NO ASSIGNMENTS FOUND</p>
+                            <p><strong>This means:</strong></p>
+                            <ul>
+                                <li>No complaints have been assigned to this agent yet</li>
+                                <li>Admin needs to assign complaints to you first</li>
+                            </ul>
+                            <p><strong>Solution:</strong></p>
+                            <ol>
+                                <li>Login as ADMIN</li>
+                                <li>Go to Admin Dashboard</li>
+                                <li>Find pending complaints</li>
+                                <li>Assign them to this agent: <strong>${user.name}</strong></li>
+                            </ol>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <p class="success">✅ Found ${assignments.length} assignment(s) for this agent!</p>
+                            <p>These SHOULD appear in the agent dashboard.</p>
+                            <pre>${JSON.stringify(assignments, null, 2)}</pre>
+                            <p><strong>If they're not showing in dashboard, check browser console for errors!</strong></p>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ Error: ${data.message}</p>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ Network Error: ${error.message}</p>
+                    <p>Make sure backend is running on http://localhost:5000</p>
+                `;
+                console.error('Error:', error);
+            }
+        }
+
+        async function checkAllComplaints() {
+            const resultDiv = document.getElementById('adminResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                const token = localStorage.getItem('token');
+                const user = JSON.parse(localStorage.getItem('user') || 'null');
+                
+                if (!token) {
+                    resultDiv.innerHTML = '<p class="error">❌ Not logged in!</p>';
+                    return;
+                }
+                
+                if (user?.userType !== 'admin') {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ Admin access required!</p>
+                        <p>Current user type: ${user?.userType || 'unknown'}</p>
+                    `;
+                    return;
+                }
+                
+                const response = await fetch(`${API_URL}/complaints/all`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const complaints = data.complaints || [];
+                    const pending = complaints.filter(c => c.status === 'pending');
+                    const assigned = complaints.filter(c => c.status === 'assigned');
+                    
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Found ${complaints.length} total complaint(s)</p>
+                        <p><strong>Pending:</strong> ${pending.length}</p>
+                        <p><strong>Assigned:</strong> ${assigned.length}</p>
+                        <pre>${JSON.stringify(complaints, null, 2)}</pre>
+                        ${pending.length > 0 ? '<p class="warning">⚠️ You have pending complaints to assign!</p>' : ''}
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p class="error">❌ Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+
+        async function testBackendHealth() {
+            const resultDiv = document.getElementById('backendResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p>Testing backend connection...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/health');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ Backend is running!</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<p class="error">❌ Backend error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ Cannot connect to backend!</p>
+                    <p>Error: ${error.message}</p>
+                    <p>Make sure backend is running: <code>cd backend && node index.js</code></p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

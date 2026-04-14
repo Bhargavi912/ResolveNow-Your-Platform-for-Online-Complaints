@@ -1,0 +1,31 @@
+<!-- ResolveNow App Icon - 512x512 -->
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#1976d2" rx="85"/>
+  
+  <!-- Large circle background -->
+  <g transform="translate(256, 256)">
+    <circle cx="0" cy="0" r="160" fill="#ffffff" opacity="0.15"/>
+    
+    <!-- Check mark circle -->
+    <circle cx="0" cy="0" r="120" fill="#ffffff" opacity="0.25"/>
+    
+    <!-- Large check mark -->
+    <path d="M -65 -15 L -25 40 L 80 -70" 
+          stroke="#ffffff" 
+          stroke-width="28" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" 
+          fill="none"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="256" y="420" 
+        font-family="Arial, sans-serif" 
+        font-size="56" 
+        font-weight="bold" 
+        fill="#ffffff" 
+        text-anchor="middle">
+    ResolveNow
+  </text>
+</svg>

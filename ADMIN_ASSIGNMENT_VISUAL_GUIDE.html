@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Assignment Guide - Visual Steps</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+        }
+        .step-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .step-content {
+            margin-left: 55px;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        .mockup {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .mockup-title {
+            background: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px 5px 0 0;
+            margin: -20px -20px 15px -20px;
+            font-weight: bold;
+        }
+        .mockup-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .mockup-table th {
+            background: #34495e;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+        .mockup-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 0.9em;
+        }
+        .dropdown-mockup {
+            display: inline-block;
+            background: white;
+            border: 2px solid #667eea;
+            padding: 8px 30px 8px 12px;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .dropdown-mockup::after {
+            content: '▼';
+            position: absolute;
+            right: 10px;
+            color: #667eea;
+        }
+        .btn-mockup {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-mockup:hover {
+            background: #5568d3;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #155724;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .current-status {
+            background: #e7f3ff;
+            border: 3px solid #2196F3;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .status-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        .status-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 How to Assign Complaints to Agent</h1>
+        <div class="subtitle">Visual Step-by-Step Guide for Admin Dashboard</div>
+
+        <div class="current-status">
+            <h2 style="margin-top: 0; color: #2196F3;">📊 Current Status</h2>
+            <div class="status-item">
+                <span class="status-icon">✅</span>
+                <span><strong>Agent Logged In:</strong> Yadalla Bhargavi</span>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">✅</span>
+                <span><strong>Complaints Submitted:</strong> 3 complaints</span>
+            </div>
+            <div class="status-item">
+                <span class="status-icon">❌</span>
+                <span><strong>Complaints Assigned:</strong> 0 (This is why dashboard is empty!)</span>
+            </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">1</span>
+                Logout from Agent Account
+            </div>
+            <div class="step-content">
+                <p>Click the <strong>"Logout"</strong> button in the top right corner of the page.</p>
+                <div class="highlight">
+                    <strong>💡 Tip:</strong> You need admin privileges to assign complaints. Agents cannot assign complaints to themselves.
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">2</span>
+                Login as Admin (or Create Admin Account)
+            </div>
+            <div class="step-content">
+                <p><strong>Option A:</strong> If you already have an admin account, login with those credentials.</p>
+                
+                <p><strong>Option B:</strong> If you DON'T have an admin account:</p>
+                <ol style="margin-left: 20px;">
+                    <li>Click <strong>"Sign Up"</strong></li>
+                    <li>Fill the registration form:
+                        <ul>
+                            <li>Name: <code>Admin User</code> (or any name)</li>
+                            <li>Email: <code>admin@test.com</code></li>
+                            <li>Password: Your password</li>
+                            <li>Phone: Any 10-digit number</li>
+                            <li><strong style="color: #e74c3c;">User Type: Select "Admin"</strong> ← CRITICAL!</li>
+                        </ul>
+                    </li>
+                    <li>Click <strong>"Register"</strong></li>
+                    <li>Now login with <code>admin@test.com</code> and your password</li>
+                </ol>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> Make sure you select "Admin" as the User Type during signup. If you select "Customer" or "Agent", you won't be able to assign complaints!
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">3</span>
+                Navigate to Admin Dashboard
+            </div>
+            <div class="step-content">
+                <p>After logging in as admin, you'll automatically be redirected to the admin dashboard.</p>
+                <p>URL should be: <code>http://localhost:3000/admin-dashboard</code></p>
+                
+                <div class="mockup">
+                    <div class="mockup-title">Admin Dashboard - What You'll See</div>
+                    <div style="display: flex; gap: 20px; margin: 20px 0;">
+                        <div style="flex: 1; background: #e3f2fd; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #1976d2;">Total Users</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0;">X</p>
+                        </div>
+                        <div style="flex: 1; background: #f3e5f5; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #9c27b0;">Total Agents</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0;">Y</p>
+                        </div>
+                        <div style="flex: 1; background: #fff3e0; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #f57c00;">Complaints</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0;">3</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>Scroll down</strong> to see the "Pending Complaints" section.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">4</span>
+                Find the "Pending Complaints" Section
+            </div>
+            <div class="step-content">
+                <p>Scroll down on the admin dashboard until you see an accordion/section titled:</p>
+                <div class="mockup">
+                    <div style="background: #f8f9fa; border: 2px solid #667eea; padding: 15px; border-radius: 8px; font-size: 1.2em; font-weight: bold; cursor: pointer;">
+                        📋 Pending Complaints (3) <span style="float: right;">▼</span>
+                    </div>
+                </div>
+                <p>Click on it to expand and see your 3 complaints.</p>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">5</span>
+                Assign Each Complaint to "Yadalla Bhargavi"
+            </div>
+            <div class="step-content">
+                <p>You'll see a table with all pending complaints. Here's what it looks like:</p>
+                
+                <div class="mockup">
+                    <div class="mockup-title">Pending Complaints Table</div>
+                    <table class="mockup-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Location</th>
+                                <th>Issue</th>
+                                <th>Status</th>
+                                <th>Assign To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#abc123</td>
+                                <td>John Doe</td>
+                                <td>john@test.com</td>
+                                <td>NY, USA</td>
+                                <td>Water supply issue...</td>
+                                <td><span style="background: #ffc107; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.8em;">PENDING</span></td>
+                                <td>
+                                    <span class="dropdown-mockup">Select Agent</span>
+                                    <button class="btn-mockup">Assign</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#def456</td>
+                                <td>Jane Smith</td>
+                                <td>jane@test.com</td>
+                                <td>CA, USA</td>
+                                <td>Road damage report...</td>
+                                <td><span style="background: #ffc107; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.8em;">PENDING</span></td>
+                                <td>
+                                    <span class="dropdown-mockup">Select Agent</span>
+                                    <button class="btn-mockup">Assign</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#ghi789</td>
+                                <td>Bob Lee</td>
+                                <td>bob@test.com</td>
+                                <td>TX, USA</td>
+                                <td>Power outage...</td>
+                                <td><span style="background: #ffc107; color: white; padding: 4px 8px; border-radius: 5px; font-size: 0.8em;">PENDING</span></td>
+                                <td>
+                                    <span class="dropdown-mockup">Select Agent</span>
+                                    <button class="btn-mockup">Assign</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight" style="margin-top: 30px;">
+                    <h3 style="margin-top: 0;">✋ For EACH Complaint Row, Do This:</h3>
+                    <ol style="font-size: 1.1em; line-height: 2;">
+                        <li><strong>Click the dropdown</strong> that says "Select Agent"</li>
+                        <li><strong>Choose "Yadalla Bhargavi"</strong> from the list</li>
+                        <li><strong>Click the [Assign] button</strong> next to it</li>
+                        <li><strong>Wait for alert:</strong> "Complaint assigned successfully"</li>
+                        <li><strong>Click OK</strong> on the alert</li>
+                        <li><strong>Repeat</strong> for the next complaint row</li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Important:</strong> You must do this for ALL 3 complaints individually. Don't skip any!
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">6</span>
+                Verify Assignment Worked
+            </div>
+            <div class="step-content">
+                <p>After assigning all 3 complaints, verify they moved to "Assigned Complaints" section:</p>
+                
+                <div class="mockup">
+                    <div style="background: #f8f9fa; border: 2px solid #28a745; padding: 15px; border-radius: 8px; font-size: 1.2em; font-weight: bold; cursor: pointer;">
+                        ✅ Assigned Complaints (3) <span style="float: right;">▼</span>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px;">The complaints should now show:</p>
+                <ul style="font-size: 1.1em;">
+                    <li>Status changed from <span style="background: #ffc107; color: white; padding: 2px 6px; border-radius: 3px;">PENDING</span> to <span style="background: #2196F3; color: white; padding: 2px 6px; border-radius: 3px;">ASSIGNED</span></li>
+                    <li>Agent name: <strong>Yadalla Bhargavi</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="step">
+            <div class="step-title">
+                <span class="step-number">7</span>
+                Login as Agent and Check Dashboard
+            </div>
+            <div class="step-content">
+                <ol style="font-size: 1.1em; line-height: 2;">
+                    <li><strong>Logout</strong> from admin account</li>
+                    <li><strong>Login</strong> as agent with email you used for "Yadalla Bhargavi"</li>
+                    <li><strong>Go to Agent Dashboard</strong></li>
+                    <li><strong>Refresh the page</strong> (Ctrl + R) if needed</li>
+                </ol>
+
+                <div class="success-box" style="margin-top: 30px;">
+                    🎉 NOW YOU SHOULD SEE:<br>
+                    Total Assigned: 3 | Pending Action: 3<br>
+                    All 3 complaints in the table!
+                </div>
+
+                <div class="mockup" style="margin-top: 20px;">
+                    <div class="mockup-title">Expected Agent Dashboard After Assignment</div>
+                    <div style="display: flex; gap: 20px; margin: 20px 0;">
+                        <div style="flex: 1; background: #e3f2fd; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #1976d2;">Total Assigned</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0; color: #1976d2;">3</p>
+                        </div>
+                        <div style="flex: 1; background: #fff3e0; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #f57c00;">Pending Action</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0; color: #f57c00;">3</p>
+                        </div>
+                        <div style="flex: 1; background: #f3e5f5; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #9c27b0;">In Progress</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0; color: #9c27b0;">0</p>
+                        </div>
+                        <div style="flex: 1; background: #e8f5e9; padding: 20px; border-radius: 10px; text-align: center;">
+                            <h3 style="margin: 0; color: #4caf50;">Resolved</h3>
+                            <p style="font-size: 2em; font-weight: bold; margin: 10px 0; color: #4caf50;">0</p>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-weight: bold; color: #28a745; font-size: 1.2em;">
+                        ✅ Complaints table will show all 3 complaints with customer details!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <div class="step" style="border-left-color: #e74c3c;">
+            <div class="step-title" style="color: #e74c3c;">
+                <span class="step-number" style="background: #e74c3c;">⚠️</span>
+                Troubleshooting
+            </div>
+            <div class="step-content">
+                <h3>Problem: "Yadalla Bhargavi" not appearing in dropdown</h3>
+                <p><strong>Cause:</strong> No agents found or the account wasn't created with userType "agent"</p>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Make sure "Yadalla Bhargavi" account was created with User Type: <strong>"Agent"</strong></li>
+                    <li>If not, create a new account with User Type: Agent</li>
+                </ol>
+
+                <h3 style="margin-top: 30px;">Problem: No pending complaints showing</h3>
+                <p><strong>Cause:</strong> Complaints already assigned OR no complaints submitted</p>
+                <p><strong>Solution:</strong></p>
+                <ol>
+                    <li>Check "Assigned Complaints" accordion - they might already be assigned</li>
+                    <li>If no complaints anywhere, submit new complaints as customer first</li>
+                </ol>
+
+                <h3 style="margin-top: 30px;">Problem: Assignment button does nothing</h3>
+                <p><strong>Cause:</strong> No agent selected from dropdown</p>
+                <p><strong>Solution:</strong> Make sure you SELECT an agent from the dropdown BEFORE clicking Assign</p>
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="success-box" style="margin-top: 40px; font-size: 1em; text-align: left;">
+            <h2 style="margin-top: 0; text-align: center;">📝 Quick Summary</h2>
+            <ol style="font-size: 1.1em; line-height: 2;">
+                <li>Logout from agent account</li>
+                <li>Login as ADMIN (or create admin account)</li>
+                <li>Go to Admin Dashboard</li>
+                <li>Find "Pending Complaints (3)" section</li>
+                <li>For each complaint: Select "Yadalla Bhargavi" → Click "Assign"</li>
+                <li>Logout from admin</li>
+                <li>Login as agent "Yadalla Bhargavi"</li>
+                <li>Check Agent Dashboard - All 3 complaints will appear!</li>
+            </ol>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: #f8f9fa; border-radius: 10px;">
+            <h2 style="color: #667eea;">Need More Help?</h2>
+            <p style="font-size: 1.1em;">Open the diagnostic tool to check current status:</p>
+            <p style="font-size: 1.2em; font-weight: bold; color: #667eea;">CHECK_ASSIGNMENT_STATUS.html</p>
+            <p style="color: #7f8c8d;">(Double-click the file in your project folder)</p>
+        </div>
+    </div>
+</body>
+</html>
