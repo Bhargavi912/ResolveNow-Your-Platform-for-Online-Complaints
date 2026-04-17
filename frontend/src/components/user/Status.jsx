@@ -6,7 +6,7 @@ import ChatWindow from '../common/ChatWindow';
 import FooterC from '../common/FooterC';
 import '../../App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://resolvenow-backend-qf06.onrender.com/api';
 
 function Status({ user, onLogout }) {
   const [complaints, setComplaints] = useState([]);

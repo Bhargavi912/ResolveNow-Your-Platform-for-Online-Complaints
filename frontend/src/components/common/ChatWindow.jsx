@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import '../../App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://resolvenow-backend-qf06.onrender.com/api';
 
 function ChatWindow({ complaintId, onClose }) {
   const [messages, setMessages] = useState([]);

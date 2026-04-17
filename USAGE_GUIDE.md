@@ -53,7 +53,7 @@ If you were previously logged in, your session might still be active.
 
 #### Solution 4: Verify Servers are Running
 Check both servers are running without errors:
-- Backend: http://localhost:5000/api/health (should return "Server is running")
+- Backend: https://resolvenow-backend-qf06.onrender.com/api/health (should return "Server is running")
 - Frontend: http://localhost:3000 (should show the homepage)
 
 ---

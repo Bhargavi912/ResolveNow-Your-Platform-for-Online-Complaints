@@ -5,7 +5,7 @@ import axios from 'axios';
 import FooterC from '../common/FooterC';
 import '../../App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://resolvenow-backend-qf06.onrender.com/api';
 
 function UserInfo({ user, onLogout }) {
   const [users, setUsers] = useState([]);

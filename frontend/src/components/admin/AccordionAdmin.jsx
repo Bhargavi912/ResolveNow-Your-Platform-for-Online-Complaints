@@ -3,7 +3,7 @@ import { Accordion, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import '../../App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://resolvenow-backend-qf06.onrender.com/api';
 
 function AccordionAdmin({ complaints, agents, onUpdate }) {
   const [assigningComplaint, setAssigningComplaint] = useState(null);

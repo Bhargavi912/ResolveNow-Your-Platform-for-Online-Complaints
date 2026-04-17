@@ -128,7 +128,7 @@ Test the API directly in browser console:
 ```javascript
 // After logging in as agent, run this in console:
 const token = localStorage.getItem('token');
-fetch('http://localhost:5000/api/complaints/assigned/agent', {
+fetch('https://resolvenow-backend-qf06.onrender.com/api/complaints/assigned/agent', {
   headers: { 'Authorization': `Bearer ${token}` }
 })
 .then(r => r.json())

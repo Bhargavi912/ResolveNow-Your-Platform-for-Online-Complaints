@@ -85,7 +85,7 @@ npm start
 npm run dev
 \`\`\`
 
-The backend server will start on `http://localhost:5000`
+The backend server will start on `https://resolvenow-backend-qf06.onrender.com`
 
 ### 3. Frontend Setup
 

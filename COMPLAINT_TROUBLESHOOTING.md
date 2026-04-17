@@ -16,7 +16,7 @@
 ### Step 2: Check Backend Server
 
 1. Open new browser tab
-2. Go to: http://localhost:5000/api/health
+2. Go to: https://resolvenow-backend-qf06.onrender.com/api/health
 3. Expected response: `{"status":"OK","message":"Server is running"}`
 4. If error → Backend not running
 
@@ -48,7 +48,7 @@ node index.js
 === COMPLAINT SUBMISSION START ===
 Form data: {name: "John Doe", address: "123 Main Street", ...}
 Token: Present
-API URL: http://localhost:5000/api/complaints
+API URL: https://resolvenow-backend-qf06.onrender.com/api/complaints
 Submitting complaint...
 API Response: {message: "Complaint registered successfully", complaint: {...}}
 Complaint submitted successfully!
@@ -190,7 +190,7 @@ To test if API works directly:
 ```javascript
 const token = localStorage.getItem('token');
 
-fetch('http://localhost:5000/api/complaints', {
+fetch('https://resolvenow-backend-qf06.onrender.com/api/complaints', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',

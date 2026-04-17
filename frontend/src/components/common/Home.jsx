@@ -12,15 +12,16 @@ function Home() {
     localStorage.removeItem('user');
     
     console.log('Get Started clicked - navigating to /signup');
-    console.log('Auth data cleared from localStorage');
     
-    // Use window.location as a fallback
-    window.location.href = '/signup';
+    // THE FIX: Use React's navigate instead of window.location
+    navigate('/signup');
   };
 
   const handleLearnMore = () => {
     console.log('Learn More clicked - navigating to /about');
-    window.location.href = '/about';
+    
+    // THE FIX: Use React's navigate instead of window.location
+    navigate('/about');
   };
 
   return (
@@ -47,11 +48,6 @@ function Home() {
             Your trusted platform for online complaint registration and management. 
             Submit, track, and resolve your issues efficiently with our streamlined system.
           </p>
-          
-          {/* Debug info */}
-          <div style={{ fontSize: '12px', color: '#ffeb3b', marginBottom: '10px' }}>
-            JavaScript is loaded ✓ | Time: {new Date().toLocaleTimeString()}
-          </div>
           
           <div className="home-buttons">
             <button 
@@ -84,9 +80,6 @@ function Home() {
             </button>
           </div>
           
-          <div style={{ fontSize: '11px', color: '#ddd', marginTop: '20px' }}>
-            If clicking "Get Started" doesn't work, type this in address bar: localhost:3000/signup
-          </div>
         </div>
       </div>
     </div>

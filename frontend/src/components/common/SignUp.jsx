@@ -4,7 +4,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import axios from 'axios';
 import '../../App.css';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://resolvenow-backend-qf06.onrender.com/api';
 
 function SignUp() {
   const navigate = useNavigate();

@@ -206,7 +206,7 @@ console.log('Logged in as:', user?.name, '- Type:', user?.userType);
 
 // For ADMIN - Check all complaints
 const token = localStorage.getItem('token');
-fetch('http://localhost:5000/api/complaints/all', {
+fetch('https://resolvenow-backend-qf06.onrender.com/api/complaints/all', {
   headers: { 'Authorization': `Bearer ${token}` }
 })
 .then(r => r.json())
